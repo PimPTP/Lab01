@@ -115,6 +115,8 @@ int main(void)
   HAL_ADCEx_Calibration_Start(&hadc1, ADC_SINGLE_ENDED);
   HAL_ADC_Start_DMA(&hadc1, ADC_RawRead, 300);
   HAL_TIM_Base_Start(&htim1);
+  HAL_TIM_Base_Start(&htim3);
+  HAL_TIM_PWM_Start(&htim3, TIM_CHANNEL_1);
 
   /* USER CODE END 2 */
 
@@ -498,8 +500,26 @@ void ADCtoPot()
 	pot3_avg = pot3_sum/100;
 }
 
-void Servo();
+void Servo()
 {
+	if(0 >= pot1_avg >= 1024)
+	{
+		__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 500);
+	}
+	else if(1025 >= pot1_avg >= 2048)
+	{
+		x1 = (pot2_avg/4095)*2000+500;
+		__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, x1);
+	}
+	else if(2049 >= pot1_avg >= 3072)
+	{
+		x2 = (pot3_avg/4095)*2000+500;
+		__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 500);
+	}
+	else if(3073 >= pot1_avg >= 4095)
+	{
+		__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 2500);
+	}
 
 }
 
