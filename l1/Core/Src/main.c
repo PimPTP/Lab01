@@ -56,6 +56,8 @@ uint16_t pot2_sum = 0;
 uint16_t pot2_avg = 0;
 uint16_t pot3_sum = 0;
 uint16_t pot3_avg = 0;
+uint16_t x1;
+uint16_t x2;
 
 /* USER CODE END PV */
 
@@ -128,7 +130,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  ADCtoPot();
-	  Servo();
+	  //Servo();
 
   }
   /* USER CODE END 3 */
@@ -490,7 +492,9 @@ void ADCtoPot()
 		 else if (i % 3 == 1)
 		 {
 			 pot2_sum += ADC_RawRead[i];
-		 } else {
+		 }
+		 else if (i % 3 == 2)
+		 {
 			 pot3_sum += ADC_RawRead[i];
 		 }
 	}
@@ -514,7 +518,7 @@ void Servo()
 	else if(2049 >= pot1_avg >= 3072)
 	{
 		x2 = (pot3_avg/4095)*2000+500;
-		__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 500);
+		__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, x2);
 	}
 	else if(3073 >= pot1_avg >= 4095)
 	{
