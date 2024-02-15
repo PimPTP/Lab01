@@ -506,21 +506,21 @@ void ADCtoPot()
 
 void Servo()
 {
-	if(0 >= pot1_avg >= 1024)
+	if(pot1_avg >= 0 || pot1_avg <= 1024)
 	{
 		__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 500);
 	}
-	else if(1025 >= pot1_avg >= 2048)
+	else if(pot1_avg >= 1025 || pot1_avg <= 2048)
 	{
 		x1 = (pot2_avg/4095)*2000+500;
 		__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, x1);
 	}
-	else if(2049 >= pot1_avg >= 3072)
+	else if(pot1_avg >= 2049 || pot1_avg <= 3072)
 	{
 		x2 = (pot3_avg/4095)*2000+500;
 		__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, x2);
 	}
-	else if(3073 >= pot1_avg >= 4095)
+	else if(pot1_avg >= 3073 || pot1_avg <= 4095)
 	{
 		__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 2500);
 	}
