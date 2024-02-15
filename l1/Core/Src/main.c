@@ -130,7 +130,7 @@ int main(void)
 
     /* USER CODE BEGIN 3 */
 	  ADCtoPot();
-	  //Servo();
+	  Servo();
 
   }
   /* USER CODE END 3 */
@@ -499,28 +499,28 @@ void ADCtoPot()
 		 }
 	}
 
-	pot1_avg = pot1_sum/100;
-	pot2_avg = pot2_sum/100;
-	pot3_avg = pot3_sum/100;
+	pot1_avg = ADC_RawRead[0];  //pot1_sum/100;
+	pot2_avg = ADC_RawRead[1];  //pot2_sum/100;
+	pot3_avg = ADC_RawRead[2];  //pot3_sum/100;
 }
 
 void Servo()
 {
-	if(pot1_avg >= 0 || pot1_avg <= 1024)
+	if(pot1_avg >= 0 && pot1_avg <= 1024)
 	{
 		__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 500);
 	}
-	else if(pot1_avg >= 1025 || pot1_avg <= 2048)
+	else if(pot1_avg >= 1025 && pot1_avg <= 2048)
 	{
 		x1 = (pot2_avg/4095)*2000+500;
 		__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, x1);
 	}
-	else if(pot1_avg >= 2049 || pot1_avg <= 3072)
+	else if(pot1_avg >= 2049 && pot1_avg <= 3072)
 	{
 		x2 = (pot3_avg/4095)*2000+500;
 		__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, x2);
 	}
-	else if(pot1_avg >= 3073 || pot1_avg <= 4095)
+	else if(pot1_avg >= 3073 && pot1_avg <= 4095)
 	{
 		__HAL_TIM_SET_COMPARE(&htim3, TIM_CHANNEL_1, 2500);
 	}

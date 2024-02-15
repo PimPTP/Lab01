@@ -7,5 +7,5 @@
 ../Core/Src/main.c:427:13:MX_DMA_Init	1
 ../Core/Src/main.c:446:13:MX_GPIO_Init	1
 ../Core/Src/main.c:483:6:ADCtoPot	5
-../Core/Src/main.c:507:6:Servo	1
+../Core/Src/main.c:507:6:Servo	8
 ../Core/Src/main.c:536:6:Error_Handler	1
